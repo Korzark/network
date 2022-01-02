@@ -1,0 +1,106 @@
+package fr.ensisa.hassenforder.brittle.bank.network;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Collection;
+
+import fr.ensisa.hassenforder.brittle.bank.model.Card;
+import fr.ensisa.hassenforder.brittle.bank.model.Model;
+import fr.ensisa.hassenforder.brittle.network.Protocol;
+
+public class BankSession extends Thread {
+
+	private Socket connection;
+	private Model model;
+
+	public BankSession(Socket connection, Model model) {
+		this.connection = connection;
+		this.model = model;
+	}
+
+	public void close () {
+		this.interrupt();
+		try {
+			if (connection != null)
+				connection.close();
+		} catch (IOException e) {
+		}
+		connection = null;
+	}
+
+	public boolean operate() {
+		try {
+			BankWriter writer = new BankWriter (connection.getOutputStream());
+			BankReader reader = new BankReader (connection.getInputStream());
+			reader.receive ();
+			switch (reader.getType ()) {
+			case 0 : return false; // socket closed
+			case Protocol.REQUEST_POPULATE:
+				processPopulate(reader, writer);
+				break;
+			case Protocol.REQUEST_INVALIDATE:
+				processInvalidate(reader, writer);
+				break;
+			case Protocol.REQUEST_CREATE:
+				processCreate(reader, writer);
+				break;
+			case Protocol.REQUEST_GET_CARD:
+				processGetCard(reader, writer);
+				break;
+
+			default: return false; // connection jammed
+			}
+			writer.send ();
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	private void processCreate(BankReader reader, BankWriter writer)
+	{
+		String owner = reader.getOwner();
+		Card card = new Card(owner);
+		model.add(card);
+		if(model.getAll().contains(card))
+		{
+			writer.createCardID(card);
+		}
+		else{
+			writer.createKO();
+		}
+	}
+
+	private void processInvalidate(BankReader reader, BankWriter writer)
+	{
+		long cardID = reader.getNumber();
+		if(cardID != 0)
+		{
+			model.get(cardID).setValid(false);
+			writer.createOK();
+		}
+		else
+		{
+			writer.createKO();
+		}
+	}
+
+	private void processPopulate(BankReader reader, BankWriter writer)
+	{
+
+		model.populate();
+		writer.createOK();
+	}
+
+	public void run() {
+		while (true) {
+			if (! operate())
+				break;
+		}
+		try {
+			if (connection != null) connection.close();
+		} catch (IOException e) {
+		}
+	}
+
+}

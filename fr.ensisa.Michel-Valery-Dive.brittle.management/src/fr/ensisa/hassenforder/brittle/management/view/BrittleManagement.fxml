@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="pane" prefHeight="350.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ensisa.hassenforder.brittle.management.view.ManagementController">
+   <bottom>
+      <Label fx:id="statusLabel" text="Label" BorderPane.alignment="CENTER_LEFT">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+   </bottom>
+   <center>
+      <HBox>
+         <children>
+            <TableView fx:id="cardTable" prefHeight="299.0" prefWidth="575.0">
+              <columns>
+                  <TableColumn fx:id="tableNumberColumn" editable="false" prefWidth="75.0" sortable="false" text="Number" />
+                <TableColumn fx:id="tableOwnerColumn" prefWidth="75.0" text="Owner" />
+                <TableColumn fx:id="tableAmountColumn" prefWidth="75.0" text="Amount" />
+                  <TableColumn fx:id="tableValidColumn" prefWidth="75.0" text="Valid" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <VBox alignment="TOP_RIGHT" prefWidth="60.0">
+               <children>
+                  <Label text="Details" />
+                  <Label text="Number" textAlignment="RIGHT" />
+                  <Label text="CCV" textAlignment="RIGHT" />
+                  <Label text="Owner" textAlignment="RIGHT" />
+                  <Label text="Amount" textAlignment="RIGHT" />
+                  <Label text="Valid" textAlignment="RIGHT" />
+                  <Button mnemonicParsing="false" onAction="#onClear" text="Clear" />
+               </children>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox prefWidth="60.0">
+               <children>
+                  <Label textAlignment="RIGHT" />
+                  <Label fx:id="cardNumber" text="Number" textAlignment="RIGHT" />
+                  <Label fx:id="cardCCV" text="CCV" textAlignment="RIGHT" />
+                  <Label fx:id="cardOwner" text="Owner" textAlignment="RIGHT" />
+                  <Label fx:id="cardAmount" text="Amount" textAlignment="RIGHT" />
+                  <CheckBox fx:id="cardValid" mnemonicParsing="false" onAction="#onValidChanged" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <AnchorPane prefHeight="26.0" prefWidth="810.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="12.0" text="Name" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <TextField fx:id="nameField" layoutX="42.0" layoutY="10.0" prefHeight="25.0" prefWidth="185.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="10.0" />
+            <Button layoutX="240.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCreate" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="10.0" />
+            <Button layoutX="301.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPopulate" text="Populate" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="311.0" AnchorPane.topAnchor="10.0" />
+            <Button layoutX="374.0" layoutY="10.0" mnemonicParsing="false" onAction="#onList" text="List" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="10.0" />
+            <Label layoutX="620.0" layoutY="14.0" text="Transfer" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="14.0" />
+            <TextField fx:id="transferField" layoutX="685.0" layoutY="10.0" prefHeight="25.0" prefWidth="76.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="10.0" />
+            <Button fx:id="depositButton" layoutX="754.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeposit" text="+" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="10.0" />
+            <Button fx:id="withdrawButton" layoutX="786.0" layoutY="10.0" mnemonicParsing="false" onAction="#onWithdraw" text="-" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

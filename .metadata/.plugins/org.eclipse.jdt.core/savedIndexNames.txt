@@ -1,0 +1,5 @@
+INDEX VERSION 1.129+C:\Users\Guillaume-Ecole\Desktop\TD_Reseau_JAVA_FX\.metadata\.plugins\org.eclipse.jdt.core
+4153413791.index
+3075621249.index
+2838216182.index
+3710248154.index

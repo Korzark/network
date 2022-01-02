@@ -1,0 +1,23 @@
+package fr.ensisa.hassenforder.brittle.bank.network;
+
+import java.io.OutputStream;
+import java.util.Collection;
+
+import fr.ensisa.hassenforder.brittle.bank.model.Card;
+import fr.ensisa.hassenforder.brittle.network.Protocol;
+import fr.ensisa.hassenforder.network.BasicAbstractWriter;
+
+public class BankWriter extends BasicAbstractWriter {
+
+    public BankWriter(OutputStream outputStream) {
+        super (outputStream);
+    }
+
+	public void createOK()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+
+}

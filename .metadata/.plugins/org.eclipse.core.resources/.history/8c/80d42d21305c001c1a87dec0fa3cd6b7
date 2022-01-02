@@ -1,0 +1,36 @@
+package fr.ensisa.hassenforder.brittle.management.network;
+
+import java.io.InputStream;
+import java.util.List;
+
+import fr.ensisa.hassenforder.brittle.management.model.Card;
+import fr.ensisa.hassenforder.brittle.network.Protocol;
+import fr.ensisa.hassenforder.network.BasicAbstractReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class ManagementReader extends BasicAbstractReader {
+
+    public ManagementReader(InputStream inputStream) {
+        super(inputStream);
+    }
+
+    private void eraseFields() {
+    }
+
+	private void readXXX() {
+
+	}
+
+	public void receive() {
+        type = readInt();
+        eraseFields();
+        switch (type) {
+        case Protocol.REPLY_OK:
+        	break;
+        case Protocol.REPLY_KO:
+        	break;
+        }
+    }
+
+}
